@@ -1,5 +1,10 @@
 /* A program to print the size of data types. */
 # include <stdio.h>
+/**
+ * main - Printing the size of some data types.
+ *
+ * Return: 0 if program runs succesful
+	*/
 int main(void)
 {
 	printf("Size of a char: %ld byte(s)\n", sizeof(char));
