@@ -9,11 +9,10 @@ int main(void)
 {
 	char alpha = 'a';
 	char l_alpha = 'z';
-
-	l_alpha++;
 	char x = 26;
 	char y = 0;
 
+	l_alpha++
 	while (y != x)
 	{
 		putchar(alpha);
