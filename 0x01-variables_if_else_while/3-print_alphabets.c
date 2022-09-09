@@ -12,7 +12,7 @@ int main(void)
 	char x = 26;
 	char y = 0;
 
-	l_alpha++
+	l_alpha++;
 	while (y != x)
 	{
 		putchar(alpha);
