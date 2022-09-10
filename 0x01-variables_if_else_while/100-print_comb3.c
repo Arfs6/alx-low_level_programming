@@ -22,7 +22,7 @@ putchar(',');
 		{
 			r_num = 0;
 			l_num++;
-			r_num = l_num;
+			r_num = l_num + 1;
 		}
 	}
 	putchar('\n');
