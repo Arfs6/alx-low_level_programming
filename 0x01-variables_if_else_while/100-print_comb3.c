@@ -15,14 +15,17 @@ int main(void)
 	{
 		putchar(l_num % 10 + '0');
 		putchar(r_num % 10 + '0');
-putchar(',');
-		putchar(' ');
 		r_num++;
 		if (r_num == 10)
 		{
 			r_num = 0;
 			l_num++;
 			r_num = l_num + 1;
+		}
+		if ((l_num <= 10) && (r_num <=9))
+		{
+putchar(',');
+		putchar(' ');
 		}
 	}
 	putchar('\n');
