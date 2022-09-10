@@ -8,7 +8,6 @@
 int main(void)
 {
 	int num = 0;
-	int max = 9;
 	int i = 10;
 
 	while (num < i)
