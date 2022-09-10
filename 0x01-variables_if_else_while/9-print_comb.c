@@ -8,11 +8,14 @@
 int main(void)
 {
 	int num = 0;
+	int max = 9;
 	int i = 10;
 
 	while (num < i)
 	{
 		putchar(num % 10 + '0');
+		if (num == 9)
+		break;
 		putchar(',');
 		putchar(' ');
 		num++;
