@@ -22,10 +22,10 @@ int main(void)
 			l_num++;
 			r_num = l_num + 1;
 		}
-		if ((l_num <= 10) && (r_num <=9))
+		if ((l_num <= 10) && (r_num <= 9))
 		{
-putchar(',');
-		putchar(' ');
+			putchar(',');
+			putchar(' ');
 		}
 	}
 	putchar('\n');
