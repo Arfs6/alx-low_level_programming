@@ -25,9 +25,9 @@ int main(void)
 		}
 		if ((num_2 >= 8) && (num_3 >= 10))
 		{
-				num_1++;
-				num_2 = num_1 +1;
-				num_3 = num_2 + 1;
+			num_1++;
+			num_2 = num_1 + 1;
+			num_3 = num_2 + 1;
 		}
 		if (num_1 == 8)
 		break;
