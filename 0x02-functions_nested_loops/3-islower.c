@@ -4,7 +4,7 @@ int _islower(int c)
 {
 int result;
 
-result = islower(c);
+result = 0 //islower(c);
 if (result)
 return (1);
 else
