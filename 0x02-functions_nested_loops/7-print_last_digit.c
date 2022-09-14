@@ -3,7 +3,8 @@
 /**
  * print_last_digit - print the last digit
  *
- * Return last digit (success)
+ * @n: Number to check
+ * Return: last digit (success)
 */
 int print_last_digit(int n)
 {
