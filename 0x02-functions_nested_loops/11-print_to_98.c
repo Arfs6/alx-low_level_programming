@@ -6,7 +6,7 @@
 */
 void print_to_98(int n)
 {
-	while(1)
+	while (1)
 	{
 		printf("%i", n);
 		if (n == 98)
@@ -14,4 +14,5 @@ void print_to_98(int n)
 		printf(", ");
 		n++;
 	}
+	putchar('\n');
 }
