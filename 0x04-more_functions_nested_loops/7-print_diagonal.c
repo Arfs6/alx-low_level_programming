@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * print_diagonal - print a diagonal on the screen
- * @n: number of \
+* print_diagonal - print a diagonal on screen
+* @n: number of \
 */
 void print_diagonal(int n)
 {
@@ -19,7 +19,7 @@ void print_diagonal(int n)
 		}
 		_putchar('\n');
 		sp = ln - 1;
-		while(sp)
+		while (sp)
 		{
 			_putchar(' ');
 			sp--;
