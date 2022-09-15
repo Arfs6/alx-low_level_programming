@@ -1,34 +1,25 @@
 #include "main.h"
 
 /**
- * print_number - print the number
- * @n: the number
-*/
-void print_number(int n)
-{
-	if (n <= 9)
-	_putchar(n % 10 + '0');
-	else
-	{
-		_putchar(n / 10 + '0');
-		_putchar(n % 10 + '0');
-	}
-}
-
-/**
  * more_numbers - print numbers from 0-9 10X
 */
 void more_numbers(void)
 {
 	int num;
-	int i, j;
+	int i;
+	int j;
 
-	for (i = 0; i < 10; i++)
+	i = 10;
+	while (i--)
 	{
 		j = 0;
+		num = 0;
 		while (j < 15)
 		{
-			print_number(j);
+			if (num >= 10)
+			_putchar(num /10 + '0');
+			_putchar(num % 10 + '0');
+			num++;
 			j++;
 		}
 			_putchar('\n');
