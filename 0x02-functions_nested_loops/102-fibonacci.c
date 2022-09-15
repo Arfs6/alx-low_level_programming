@@ -1,25 +1,25 @@
 #include <stdio.h>
 /**
- * main - initializing
+ * main - main function
  *
- * Return: 0
-*/
+ * Return: nothing
+ */
 int main(void)
 {
-	int i = 2;
+	int counter = 2;
 	long int a = 1;
 	long int b = a + 1;
 	long int c = a + b;
 
 	printf("%ld, %ld, ", a, b);
-	while (i < 50)
+	while (counter < 50)
 	{
 		printf("%ld", c);
-		i++;
+		counter++;
 		a = b;
 		b = c;
 		c = a + b;
-		if (i < 50)
+		if (counter < 50)
 		{
 			printf(", ");
 		}
