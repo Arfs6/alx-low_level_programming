@@ -1,12 +1,18 @@
-#include <ctype.h>
 
+#include <unistd.h>
+#include "main.h"
+
+/**
+ * _islower - checks whether c is a lowercase letter
+ * @c: The character to check
+ *
+ * Return: 1 if c is lowercase,
+ * else Return 0
+ */
 int _islower(int c)
 {
-int result;
-
-result = islower(c);
-if (result)
-return (1);
-else
-return (1);
+	if (c >= 97 && c <= 122)
+		return (1);
+	else
+		return (0);
 }
