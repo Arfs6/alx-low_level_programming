@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
-* print_diagonal - print a diagonal on screen
-* @n: number of \
+ * print_diagonal - Print a diagonal on the screen
+ * @n: number of back slashs
 */
 void print_diagonal(int n)
 {
