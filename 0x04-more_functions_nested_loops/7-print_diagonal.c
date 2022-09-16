@@ -17,7 +17,6 @@ void print_diagonal(int n)
 			_putchar('\n');
 			break;
 		}
-		_putchar('\n');
 		sp = ln - 1;
 		while (sp)
 		{
@@ -25,7 +24,10 @@ void print_diagonal(int n)
 			sp--;
 		}
 		_putchar('\\');
+		_putchar('\n');
 		n--;
+		if (n == 0)
+		break;
 		ln++;
 	}
 }
