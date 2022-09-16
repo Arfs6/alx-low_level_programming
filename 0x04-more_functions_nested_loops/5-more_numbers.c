@@ -1,6 +1,17 @@
 #include "main.h"
 
 /**
+ * write_number - prints a number
+ * @n: the number to write
+*/
+void write_number(int n)
+{
+	if (n / 10)
+	write_number(n / 10);
+	_putchar(n % 10 + '0');
+}
+
+/**
  * more_numbers - print numbers from 0-9 10X
 */
 void more_numbers(void)
@@ -16,9 +27,7 @@ void more_numbers(void)
 		num = 0;
 		while (j < 15)
 		{
-			if (num >= 10)
-			_putchar(num /10 + '0');
-			_putchar(num % 10 + '0');
+			write_number(num);
 			num++;
 			j++;
 		}
