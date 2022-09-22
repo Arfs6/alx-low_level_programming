@@ -9,7 +9,7 @@
 char *cap_string(char *str)
 {
 	int flag, i, j;
-	char sprs[] = " \n\t,;.!?\"(){}\0";
+	char sprs[] = " \n\t,;.!?\"(){}";
 
 	for (i = 0; str[i]; i++)
 	{
