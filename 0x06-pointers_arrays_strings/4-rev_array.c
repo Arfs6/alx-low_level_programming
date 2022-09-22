@@ -16,7 +16,7 @@ void reverse_array(int *a, int n)
 	stop = n / 2;
 	i = 0; /* first element */
 	n = n - 1; /* last element */
-	while (1)
+	while (n > 1)
 	{
 		cur = a[n];
 		a[n] = a[i];
