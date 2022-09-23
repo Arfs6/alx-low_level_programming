@@ -6,15 +6,13 @@
 */
 void print_number(int n)
 {
-	unsigned int i;
 	if (n < 0)
 	{
+		/* change to positive if negative and print - */
+		n = n * -1;
 		_putchar('-');
-		i = n * - 1;
 	}
-	else
-	i = n;
-	if (i / 10)
-	print_number(i / 10);
-	_putchar(i % 10 + '0');
+	if (n / 10)
+	print_number(n / 10); /* recursion! */
+	_putchar(n % 10 + '0');
 }
