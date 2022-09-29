@@ -44,6 +44,13 @@ int check_palindrome(char *str, int start, int stop)
 			return (0);
 }
 
+/**
+ * is_palindrome - check for palindromes
+ * @s: string to check
+ *
+ * Return: 1 if true
+ * 0 if false
+*/
 int is_palindrome(char *s)
 {
 	int len, start, stop;
