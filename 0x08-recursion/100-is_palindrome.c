@@ -1,46 +1,58 @@
 #include "main.h"
-/**
-*longitud - function that returns the power of number
-*@s: string
-*
-*Return: length of a string
-*/
-int longitud(char *s)
-{
-	int l = 0;
 
-	if (*s != '\0')
-	{
-		l++;
-		return (longitud(s + 1) + l);
-	}
-	return (l);
-}
 /**
- *comparar - function that returns the power of number
- *@i: original number
- *@l: counter to compare multiplication
- *@s: string
- *Return: square root
- */
-int comparar(int i, int l, char *s)
+ * _strlen_recursion - return length of a string using recursion
+ * @s: string to find length
+ *
+ * Return: length of string
+*/
+int _strlen_recursion(char *s)
 {
-	if (i >= l)
-		return (1);
-	else if (s[i] == s[l])
-		return (comparar(i + 1, l - 1, s));
-	else
-		return (0);
+	int len;
+
+	if (!*s)
+	return (0);
+	len = _strlen_recursion(&s[1]) + 1;
+	return (len);
 }
+
 /**
- *is_palindrome - return 1 if is number prime
- *@s: number to evaluate
- *Return: 1 or 0
- */
+ * check_palindrome - check if the string is a palindrome
+ * @str: string to check
+ * @start: starting point
+ * @stop: stop point
+ *
+ * Return: 1 if true or 0 if false
+*/
+int check_palindrome(char *str, int start, int stop)
+{
+	if (start == 0)
+	{
+		if (str[start] == str[stop])
+			return (1); /* palindrome */
+		else
+			return (0);
+	}
+	if (check_palindrome(str, (start - 1), (stop + 1)))
+	{
+		if (str[start] == str[stop])
+			return (1);
+		else
+			return (0);
+	}
+	else
+			return (0);
+}
+
 int is_palindrome(char *s)
 {
-	int l = longitud(s);
-	int i = 0;
+	int len, start, stop;
 
-	return (comparar(i, l - 1, s));
+	len = _strlen_recursion(s);
+	if (len % 2)
+	stop = len / 2 + 1;
+	else
+	stop = len / 2;
+	start = len / 2 - 1;
+	return (check_palindrome(s, start, stop));
 }
