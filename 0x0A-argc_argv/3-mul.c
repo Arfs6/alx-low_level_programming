@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**main - multiply two numbers
+/**
+ * main - multiply two numbers
  * @argc: arguments count
  * @argv: numbers
  *
