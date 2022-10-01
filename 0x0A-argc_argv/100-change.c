@@ -11,7 +11,7 @@
 */
 int main(int argc, char *argv[])
 {
-	int cash, cents = 0;
+	long int cash, cents = 0;
 
 	if (argc != 2)
 	{
@@ -27,19 +27,19 @@ int main(int argc, char *argv[])
 	}
 	while (cash)
 	{
-		if (cash > 25)
+		if (cash >= 25)
 			cash -= 25;
-		else if (cash > 10)
+		else if (cash >= 10)
 			cash -= 10;
-		else if (cash > 5)
+		else if (cash >= 5)
 			cash -= 5;
-		else if (cash > 2)
+		else if (cash >= 2)
 			cash -= 2;
 		else if (cash >= 1)
 			cash = 0;
 
 		cents++;
 	}
-	printf("%d\n", cents);
+	printf("%ld\n", cents);
 	return (0);
 }
