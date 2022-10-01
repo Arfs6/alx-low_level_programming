@@ -12,7 +12,7 @@
 int main(int argc, char *argv[])
 {
 	int add = 0, i, tmp;
-	char **ptr;
+	char *ptr = 0;
 
 	if (argc == 1)
 	{
@@ -22,11 +22,11 @@ int main(int argc, char *argv[])
 
 	for (i = 1; i < argc; i++)
 	{
-		tmp = strtol(argv[i], *ptr, 10);
+		tmp = strtol(argv[i], &ptr, 10);
 		if (*ptr)
 		{
 			printf("Error\n");
-			return (0);
+			return (1);
 		}
 		if (tmp < 0)
 			continue;
