@@ -12,16 +12,16 @@
 char *str_concat(char *s1, char *s2)
 {
 	char *s1_s2;
-	int s1_len, s2_len, len, i, j;
+	int s1_len = 0, s2_len = 0, len, i, j;
 	short int flag;
 
 	flag = 1;
-	if (s1 == 0)
+	if (!s1 || !s1[0])
 		flag = 0;
 	for (s1_len = 0; s1[s1_len] && flag; ++s1_len)
 		;
 	flag = 1;
-	if (s2 == 0)
+	if (!s2 || !s2[0])
 		flag = 0;
 	for (s2_len = 0; s2[s2_len] && flag; ++s2_len)
 		;
