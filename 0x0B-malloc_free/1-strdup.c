@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
 
@@ -28,6 +27,7 @@ char *_strdup(char *str)
 	/* duplicate str! */
 	for (i = 0; i < len; ++i)
 		dup[i] = str[i];
+	dup[i + 1] = '\0';
 
 	return (dup);
 	}
