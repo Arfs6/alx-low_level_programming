@@ -15,7 +15,7 @@ char **strtow(char *str)
 {
 	int start, stop, len = 0, num_words = 0, j, i;
 	short int word;
-	char *tmp, **tab;
+	char **tab;
 
 	if (!str || !*str)
 		return (NULL);/* invalid string */
@@ -32,7 +32,7 @@ char **strtow(char *str)
 				word = out;
 			else
 				word = in;
-				continue;
+			continue;
 		}
 		if ((str[i] == ' ' || str[i] == '\0') && word)
 		{
@@ -58,7 +58,7 @@ char **strtow(char *str)
 				word = out;
 			else
 				word = in;
-				continue;
+			continue;
 		}
 		if ((str[i] == ' ' || str[i] == '\0') && word)
 		{
@@ -78,7 +78,6 @@ char **strtow(char *str)
 				*(*(tab + num_words) + j) = *(str + start);
 			}
 			*(*(tab + num_words) + j) = '\0';
-//			*(tab + num_words) = tmp;
 			start = stop = 0;
 			num_words++;
 		}
