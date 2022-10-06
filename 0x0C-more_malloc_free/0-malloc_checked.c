@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * malloc_check - create memory of size b
+ * malloc_checked - create memory of size b
  * @b: bytes to allocate
  *
  * Return: pointer to block of memory
