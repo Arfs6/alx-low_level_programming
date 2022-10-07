@@ -43,6 +43,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	else if (!ptr)
 	{
 		new_ptr = malloc(new_size); /* nothing to copy */
+		free(ptr);
 		return (new_ptr);
 	}
 	else if (ptr && !new_size)
@@ -52,10 +53,6 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	}
 
 	/* create new_memory and copy content in memory */
-	new_ptr = ptr;
-	new_ptr = malloc(new_size);
-	if (!new_ptr)
-		return (NULL); /* insufficient memory */
 
 	new_ptr = malloc(new_size);
 	if (!new_ptr)
