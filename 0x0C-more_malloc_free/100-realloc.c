@@ -13,8 +13,7 @@
 void copy_ptr(void *ptr, void *new_ptr, unsigned int old_size,
 	unsigned int new_size)
 {
-	int i = 0, stop;
-
+	unsigned int i = 0, stop;
 
 	if (old_size > new_size)
 		stop = old_size - new_size;
