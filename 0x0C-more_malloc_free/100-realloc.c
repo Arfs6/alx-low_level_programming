@@ -14,10 +14,7 @@ void copy_ptr(void *ptr, void *new_ptr, unsigned int old_size,
 	unsigned int new_size)
 {
 	int i = 0, stop;
-	char *cptr, *cnew_ptr;
 
-	cptr = (char *)ptr;
-	cnew_ptr = (char *)new_ptr;
 
 	if (old_size > new_size)
 		stop = old_size - new_size;
@@ -25,7 +22,7 @@ void copy_ptr(void *ptr, void *new_ptr, unsigned int old_size,
 		stop = new_size - old_size;
 
 	for (i = 0; i < stop; i++)
-		cnew_ptr[i] = cptr[i];
+		*((char *)(new_ptr) + i) = *((char *)(ptr) + i);
 }
 
 /**
