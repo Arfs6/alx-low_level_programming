@@ -3,8 +3,10 @@
 
 void print_error(void);
 int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2);
-void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsigned int max);
-char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsigned int zeros);
+void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
+	unsigned int max);
+char *get_rest(char *num1, char num, unsigned int len1, unsigned int max,
+	unsigned int zeros);
 char *add_rest(char **mul_rest, unsigned int len, unsigned int max);
 void print_answer(char *fin_ans);
 void check_0(char *fin_ans, unsigned int len);
@@ -103,7 +105,8 @@ int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2)
  * @len2: lenght of num2:
  * @max: max size of buffer to store result
 */
-void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsigned int max)
+void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
+	unsigned int max)
 {
 	unsigned int i, j;
 	char **mul_rest, *fin_ans;
@@ -134,14 +137,14 @@ void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsi
  *
  * Return: result of multiplication
 */
-char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsigned int zeros)
+char *get_rest(char *num1, char num, unsigned int len1, unsigned int max,
+	unsigned int zeros)
 {
 	unsigned int i, j, rem, ans;
 	char *rest;
 
 	j = i = ans = rem = 0;
 	rest = calloc(max, sizeof(char));
-
 	j = max - 1;
 
 	/* add zeros */
@@ -277,6 +280,7 @@ void check_0(char *fin_ans, unsigned int len)
 void print_answer(char *fin_ans)
 {
 	unsigned int i = 0;
+
 	while (fin_ans[i])
 	{
 		_putchar(fin_ans[i]);
