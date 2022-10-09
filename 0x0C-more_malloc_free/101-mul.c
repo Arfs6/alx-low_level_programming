@@ -61,7 +61,7 @@ int main(int ac, char **av)
 */
 void print_error(void)
 {
-	char err[] = "error\n";
+	char err[] = "Error\n";
 	int i;
 
 	for (i = 0; err[i]; ++i)
