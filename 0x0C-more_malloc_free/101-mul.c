@@ -3,6 +3,11 @@
 
 void print_error(void);
 int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2);
+void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsigned int max);
+char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsigned int zeros);
+char *add_rest(char **mul_rest, unsigned int len, unsigned int max);
+void print_answer(char *fin_ans);
+void check_0(char *fin_ans, unsigned int len);
 
 /**
  * main - multiply two numbers
@@ -14,7 +19,7 @@ int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2);
 */
 int main(int ac, char **av)
 {
-	unsigned int len1, len2, len;
+	unsigned int len1, len2, max;
 	short int flag = 1;
 	char *num1, *num2;
 
@@ -33,6 +38,13 @@ int main(int ac, char **av)
 		print_error();
 		exit(98);
 	}
+	/* set max size of buffer */
+	if (len1 >= len2)
+		max = len1 * 2 + 2;
+	else
+		max = len2 * 2 + 2;
+
+	multiply(num1, num2, len1, len2, max);
 	return (0);
 }
 
@@ -67,17 +79,268 @@ int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2)
 	*len1 = *len2 = 0;
 	for (i = 0; num1[i]; ++i)
 	{
-		if (num1[i] <= '0' || num1[i] >= '9')
+		if (num1[i] < '0' || num1[i] > '9')
 			return (1);
-		*len1++;
+		(*len1)++;
 	}
 
 	for (i = 0; num2[i]; ++i)
 	{
-		if (num2[i] <= '0' || num2[i] >= '9')
+		if (num2[i] < '0' || num2[i] > '9')
 			return (1);
-		*len2++;
+		(*len2)++;
 	}
 
 	return (0);
+}
+
+/**
+ * multiply - multiply two numbers
+ * @num1: 1st number
+ * @num2: 2nd number
+ * @len1: lenght of num1
+ * @len2: lenght of num2:
+ * @max: max size of buffer to store result
+*/
+void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsigned int max)
+{
+	unsigned int i, j;
+	char **mul_rest, *fin_ans;
+
+	i = j = 0;
+	mul_rest = malloc(sizeof(*mul_rest) * len2);
+	i = len2 - 1;
+	while (1)
+	{
+		*(mul_rest + j) = get_rest(num1, num2[i], len1, max, j);
+		if (i == 0)
+			break;
+		--i;
+		++j;
+	}
+	fin_ans = add_rest(mul_rest, len2, max);
+	print_answer(fin_ans);
+}
+
+/**
+ * get_rest - multiply a digit with a number
+ * @num: digit
+ * @num1: number
+ * @len1: lenght of num1
+ * @max: max size of buffer
+ * @zeros: number of zeros to add before answer
+ *
+ * Return: result of multiplication
+*/
+char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsigned int zeros)
+{
+	unsigned int i, j, rem, ans;
+	char *rest;
+
+	j = i = ans = rem = 0;
+	rest = calloc(max, sizeof(char));
+
+	j = max - 1;
+
+	/* add zeros */
+	for (i = 0; i < zeros; ++i, --j)
+	{
+		*(rest + j) = '0';
+	}
+
+	/* multiply num with all values in num1 */
+	i = len1 - 1;
+	while (1)
+	{
+		ans = (num1[i] - '0') * (num - '0');
+		if (rem)
+		{
+			ans += rem;
+			rem = 0;
+		}
+		if (ans % 10)
+			rem = ans / 10;
+		*(rest + j) = (ans % 10) + '0';
+		if (i == 0)
+			break;
+		--i;
+		--j;
+	}
+	if (rem)
+	{
+		--j;
+		*(rest + j) = rem + '0';
+	}
+	--j;
+	*(rest + j) = '\0';
+
+	i = 0;
+	while (i < 5)
+	{
+		_putchar(rest[i]);
+		i++;
+	}
+
+	return (rest);
+}
+
+/**
+ * add_rest - add result of multiplication
+ * @mul_rest: result of multiplication
+ * @len: number of elements in mul_rest
+ * @max: max size of buffer
+ *
+ * Return: Final answer
+*/
+char *add_rest(char **mul_rest, unsigned int len, unsigned int max)
+{
+	unsigned int rem, ans, idx, i, j;
+	short int flag;
+	char *fin_ans, tmp;
+
+	ans = rem = idx = j = i = 0;
+	fin_ans = calloc(max, sizeof(char));
+
+	idx = j = max - 1;
+	while (1)
+	{
+		ans = 0;
+		for (i = 0; i < len; ++i)
+		{
+			if (mul_rest[i][j] == '\0')
+			{
+				continue;
+			}
+			ans += mul_rest[i][j] - '0';
+		}
+		if (rem)
+		{
+			ans += rem;
+			rem = 0;
+		}
+		if (ans / 10)
+			rem = ans / 10;
+			printf("ans = %i\n", ans);
+		fin_ans[idx] = (ans % 10) + '0';
+		if (j == 0)
+			break;
+		--j;
+		--idx;
+	}
+
+	printf("result of addition\n");
+	i = 0;
+	putchar('\n');
+	while(i < max)
+	{
+		if (fin_ans[i] == '\0')
+		{
+			printf("\\0");
+			i++;
+			continue;
+		}
+		putchar(fin_ans[i]);
+		i++;
+	}
+	putchar('\n');
+
+	/* change trailling 0s to null character. */
+	check_0(fin_ans, max);
+	printf("check_0 returned %s\n", fin_ans);
+
+	return (fin_ans);
+}
+
+/**
+ * check_0 - remove trailling 0s in answer
+ * @fin_ans: answer to check
+ * @len: lenght of fin_ans
+*/
+void check_0(char *fin_ans, unsigned int len)
+{
+	unsigned int i = 0;
+	short int flag = 0;
+	char tmp;
+
+	while (i < len)
+	{
+		if (fin_ans[i] != '0')
+		{
+			flag = 1;
+			break;
+		}
+		fin_ans[i] = '\0';
+		++i;
+	}
+
+	printf("after changing zeros to \\0\n");
+	putchar('\n');
+	i = 0;
+	while(i < len)
+	{
+		if (fin_ans[i] == '\0')
+		{
+			printf("\\0");
+			i++;
+			continue;
+		}
+		putchar(fin_ans[i]);
+		i++;
+	}
+	putchar('\n');
+
+	if (!flag)/* No significant number */
+	{
+		fin_ans[0] = '0';
+		fin_ans[1] = '\0';
+		printf("fin_ans set to 0\n");
+		return;
+	}
+
+	printf("shifting null characters to end of array\n");
+	i = 0;
+	while (!fin_ans[0])
+	{
+		for (i = 0; i < len; ++i)
+		{
+			tmp = fin_ans[i + 1];
+			printf("tmp = %c\n", tmp);
+			fin_ans[i + 1] = fin_ans[i];
+			printf("fin_ans[%i + 1] = %c\n", i, fin_ans[i + 1]);
+			fin_ans[i] = tmp;
+			printf("fin_ans[%i] = %c\n", i, fin_ans[i]);
+		}
+	}
+
+	printf("Aftr shifting \\0\n");
+	putchar('\n');
+	i = 0;
+	while(i < len)
+	{
+		if (fin_ans[i] == '\0')
+		{
+			printf("\\0");
+			i++;
+			continue;
+		}
+		putchar(fin_ans[i]);
+		i++;
+	}
+	putchar('\n');
+}
+
+/**
+ * print_answer - print final answer
+ * @fin_ans: final answer
+*/
+void print_answer(char *fin_ans)
+{
+	unsigned int i = 0;
+/* change this condition */
+	while (fin_ans[i])
+	{
+		_putchar(fin_ans[i]);
+		i++;
+	}
+	_putchar('\n');
 }
