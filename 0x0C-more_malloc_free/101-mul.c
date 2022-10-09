@@ -3,7 +3,7 @@
 
 void print_error(void);
 int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2);
-void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
+int multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
 	unsigned int max);
 char *get_rest(char *num1, char num, unsigned int len1, unsigned int max,
 	unsigned int zeros);
@@ -47,7 +47,12 @@ int main(int ac, char **av)
 	else
 		max = len2 * 2 + 2;
 
-	multiply(num1, num2, len1, len2, max);
+	flag = multiply(num1, num2, len1, len2, max);
+	if (flag)
+	{
+		print_error();
+		exit(98);
+	}
 	return (0);
 }
 
@@ -105,7 +110,7 @@ int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2)
  * @len2: lenght of num2:
  * @max: max size of buffer to store result
 */
-void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
+int multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
 	unsigned int max)
 {
 	unsigned int i, j;
@@ -113,18 +118,32 @@ void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2,
 
 	i = j = 0;
 	mul_rest = malloc(sizeof(*mul_rest) * len2);
+	if (!mul_rest)
+		return (1);
 	i = len2 - 1;
 	while (1)
 	{
 		*(mul_rest + j) = get_rest(num1, num2[i], len1, max, j);
+		if (!mul_rest[j])
+		{
+			free_mem(mul_rest, NULL, (i + 1));
+			return (0);
+		}
 		if (i == 0)
 			break;
 		--i;
 		++j;
 	}
 	fin_ans = add_rest(mul_rest, len2, max);
+	if (!fin_ans)
+	{
+		free_mem(mul_rest, NULL, len2);
+		return (1);
+	}
 	print_answer(fin_ans);
 	free_mem(mul_rest, fin_ans, len2);
+
+	return (0);
 }
 
 /**
@@ -145,13 +164,13 @@ char *get_rest(char *num1, char num, unsigned int len1, unsigned int max,
 
 	j = i = ans = rem = 0;
 	rest = calloc(max, sizeof(char));
+	if (!rest)
+		return (NULL);
 	j = max - 1;
 
 	/* add zeros */
 	for (i = 0; i < zeros; ++i, --j)
-	{
 		*(rest + j) = '0';
-	}
 
 	/* multiply num with all values in num1 */
 	i = len1 - 1;
@@ -197,7 +216,8 @@ char *add_rest(char **mul_rest, unsigned int len, unsigned int max)
 
 	ans = rem = idx = j = i = 0;
 	fin_ans = calloc(max, sizeof(char));
-
+	if (!fin_ans)
+		return (NULL);
 	idx = j = max - 1;
 	while (1)
 	{
@@ -298,7 +318,8 @@ void free_mem(char **mul_rest, char *fin_ans, unsigned int len)
 {
 	unsigned int i = 0;
 
-	free(fin_ans);
+	if (fin_ans)
+		free(fin_ans);
 
 	for (i = 0; i < len; i++)
 		free(mul_rest[i]);
