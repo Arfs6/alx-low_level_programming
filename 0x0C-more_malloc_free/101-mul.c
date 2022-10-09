@@ -193,8 +193,7 @@ char *get_rest(char *num1, char num, unsigned int len1, unsigned int max,
 char *add_rest(char **mul_rest, unsigned int len, unsigned int max)
 {
 	unsigned int rem, ans, idx, i, j;
-	short int flag;
-	char *fin_ans, tmp;
+	char *fin_ans;
 
 	ans = rem = idx = j = i = 0;
 	fin_ans = calloc(max, sizeof(char));
