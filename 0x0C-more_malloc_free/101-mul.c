@@ -8,6 +8,7 @@ char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsign
 char *add_rest(char **mul_rest, unsigned int len, unsigned int max);
 void print_answer(char *fin_ans);
 void check_0(char *fin_ans, unsigned int len);
+void free_mem(char **mul_rest, char *fin_ans, unsigned int len);
 
 /**
  * main - multiply two numbers
@@ -80,7 +81,7 @@ int get_len(char *num1, char *num2, unsigned int *len1, unsigned int *len2)
 	for (i = 0; num1[i]; ++i)
 	{
 		if (num1[i] < '0' || num1[i] > '9')
-			return (1);
+			return (1);/* Is non numerical */
 		(*len1)++;
 	}
 
@@ -120,6 +121,7 @@ void multiply(char *num1, char *num2, unsigned int len1, unsigned int len2, unsi
 	}
 	fin_ans = add_rest(mul_rest, len2, max);
 	print_answer(fin_ans);
+	free_mem(mul_rest, fin_ans, len2);
 }
 
 /**
@@ -174,13 +176,6 @@ char *get_rest(char *num1, char num, unsigned int len1, unsigned int max, unsign
 	--j;
 	*(rest + j) = '\0';
 
-	i = 0;
-	while (i < 5)
-	{
-		_putchar(rest[i]);
-		i++;
-	}
-
 	return (rest);
 }
 
@@ -220,7 +215,6 @@ char *add_rest(char **mul_rest, unsigned int len, unsigned int max)
 		}
 		if (ans / 10)
 			rem = ans / 10;
-			printf("ans = %i\n", ans);
 		fin_ans[idx] = (ans % 10) + '0';
 		if (j == 0)
 			break;
@@ -228,25 +222,8 @@ char *add_rest(char **mul_rest, unsigned int len, unsigned int max)
 		--idx;
 	}
 
-	printf("result of addition\n");
-	i = 0;
-	putchar('\n');
-	while(i < max)
-	{
-		if (fin_ans[i] == '\0')
-		{
-			printf("\\0");
-			i++;
-			continue;
-		}
-		putchar(fin_ans[i]);
-		i++;
-	}
-	putchar('\n');
-
 	/* change trailling 0s to null character. */
 	check_0(fin_ans, max);
-	printf("check_0 returned %s\n", fin_ans);
 
 	return (fin_ans);
 }
@@ -273,60 +250,24 @@ void check_0(char *fin_ans, unsigned int len)
 		++i;
 	}
 
-	printf("after changing zeros to \\0\n");
-	putchar('\n');
-	i = 0;
-	while(i < len)
-	{
-		if (fin_ans[i] == '\0')
-		{
-			printf("\\0");
-			i++;
-			continue;
-		}
-		putchar(fin_ans[i]);
-		i++;
-	}
-	putchar('\n');
-
 	if (!flag)/* No significant number */
 	{
 		fin_ans[0] = '0';
 		fin_ans[1] = '\0';
-		printf("fin_ans set to 0\n");
 		return;
 	}
 
-	printf("shifting null characters to end of array\n");
 	i = 0;
 	while (!fin_ans[0])
 	{
 		for (i = 0; i < len; ++i)
 		{
 			tmp = fin_ans[i + 1];
-			printf("tmp = %c\n", tmp);
 			fin_ans[i + 1] = fin_ans[i];
-			printf("fin_ans[%i + 1] = %c\n", i, fin_ans[i + 1]);
 			fin_ans[i] = tmp;
-			printf("fin_ans[%i] = %c\n", i, fin_ans[i]);
 		}
 	}
 
-	printf("Aftr shifting \\0\n");
-	putchar('\n');
-	i = 0;
-	while(i < len)
-	{
-		if (fin_ans[i] == '\0')
-		{
-			printf("\\0");
-			i++;
-			continue;
-		}
-		putchar(fin_ans[i]);
-		i++;
-	}
-	putchar('\n');
 }
 
 /**
@@ -336,11 +277,27 @@ void check_0(char *fin_ans, unsigned int len)
 void print_answer(char *fin_ans)
 {
 	unsigned int i = 0;
-/* change this condition */
 	while (fin_ans[i])
 	{
 		_putchar(fin_ans[i]);
 		i++;
 	}
 	_putchar('\n');
+}
+
+/**
+ * free_mem - free memory
+ * @mul_rest: multiplication result array
+ * @fin_ans: final answer string
+ * @len: lenght of mul_rest
+*/
+void free_mem(char **mul_rest, char *fin_ans, unsigned int len)
+{
+	unsigned int i = 0;
+
+	free(fin_ans);
+
+	for (i = 0; i < len; i++)
+		free(mul_rest[i]);
+	free(mul_rest);
 }
