@@ -4,7 +4,8 @@
 /**
  * free_dog - free memory of dog
  * @d: dog to free
-*/void free_dog(dog_t *d)
+*/
+void free_dog(dog_t *d)
 {
 	if (!d)
 		return;
