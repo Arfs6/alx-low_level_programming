@@ -3,25 +3,33 @@
 #include "dog.h"
 
 /**
-	 * _strcpy - copy string in src to dest
+	 * _strdup - copy string in src to dest
 	* @src: the string to copy
-	* @dest: destination pointer
-		*
+	*
 	* Return: The copied string
 */
-char *_strcpy(char *dest, char *src)
+char *_strdup(char *src)
 {
 	int i = 0;
+	char *cpy;
 
+	for (i = 0; src[i]; ++i)
+		;
+
+	cpy = malloc(sizeof(*cpy) * (i + 1));
+	if (!cpy)
+		return (NULL);
+
+	i = 0;
 	while (1)
 	{
-		dest[i] = src[i];
+		cpy[i] = src[i];
 		if (src[i])
 			i++;
 		else
 			break;
 	}
-	return (dest);
+	return (cpy);
 }
 
 /**
@@ -36,25 +44,23 @@ dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *dog;
 
-	dog = malloc(sizeof(dog));
+	dog = malloc(sizeof(*dog));
 	if (!dog)
 		return (NULL);
 
-	dog->name = malloc((strlen(name) + 1) * sizeof(char));
+	dog->name = _strdup(name);
 	if (!dog->name)
 	{
 		free(dog);
 		return (NULL);
 	}
-	dog->name = _strcpy(dog->name, name);
-	dog->owner = malloc((strlen(owner) + 1) * sizeof(char));
+	dog->owner = _strdup(owner);
 	if (!dog->owner)
 	{
 		free(dog->name);
 		free(dog);
 		return (NULL);
 	}
-	dog->owner = _strcpy(dog->owner, owner);
 	dog->age = age;
 
 	return (dog);
