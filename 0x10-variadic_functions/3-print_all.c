@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include "variadic_functions.h"
 
 /**
@@ -10,38 +11,40 @@
 void print_all(const char * const format, ...)
 {
 	int j, k;
-	char *str;
+	char *str, *separator;
 	va_list list;
 
 	j = k = 0;
+	separator = ", ";
+	va_start(list, format);
+
 	while (format && format[k])
 		k++;
-	va_start(list, format);
 	while (format && format[j])
 	{
+			if (j == k - 1)
+				separator = "";
 		switch (format[j])
 		{
 			case 'c':
-				printf("%c", va_arg(list, int));
+				printf("%c%s", va_arg(list, int), separator);
 				break;
 			case 'i':
-				printf("%d", va_arg(list, int));
+				printf("%d%s", va_arg(list, int), separator);
 				break;
 			case 'f':
-				printf("%f", va_arg(list, double));
+				printf("%f%s", va_arg(list, double), separator);
 				break;
 			case 's':
 			{
 				str = va_arg(list, char *);
 				if (str == NULL)
 					str = "(nil)";
-				printf("%s", str);
+				printf("%s%s", str, separator);
 				break;
 			}
 		}
 			j++;
-			if (j < k)
-				printf(" ");
 	}
 	va_end(list);
 	printf("\n");
