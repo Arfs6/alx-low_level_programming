@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <udis86.h>
 
 /**
  * main - print the of code of the current file
@@ -14,9 +13,7 @@
 int main(int ac, char **av)
 {
 	int size, i = 0;
-	int (*ptr)(int, char **) = main;
-	const char *hex;
-	ud_t ud_obj;
+		char *buffer = (char *)main;
 
 	if (ac != 2)
 	{
@@ -30,15 +27,9 @@ int main(int ac, char **av)
 		exit(2);
 	}
 
-	ud_init(&ud_obj);
-	ud_set_mode(&ud_obj, 64);
-	ud_set_input_buffer(&ud_obj, (char *)ptr, size);
-
 	while (i < size)
 	{
-		ud_disassemble(&ud_obj);
-		hex = ud_insn_hex(&ud_obj);
-		printf("%c%c", hex[0], hex[1]);
+		printf("%02hhx", buffer[i]);
 		i++;
 		if (i < size)
 			putchar(' ');
