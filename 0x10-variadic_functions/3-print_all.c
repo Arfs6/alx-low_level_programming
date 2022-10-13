@@ -22,20 +22,14 @@ void print_all(const char * const format, ...)
 		switch (format[j])
 		{
 			case 'c':
-			{
 				printf("%c", va_arg(list, int));
 				break;
-			}
 			case 'i':
-			{
 				printf("%d", va_arg(list, int));
 				break;
-			}
 			case 'f':
-			{
 				printf("%f", va_arg(list, double));
 				break;
-			}
 			case 's':
 			{
 				str = va_arg(list, char *);
