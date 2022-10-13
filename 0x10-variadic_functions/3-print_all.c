@@ -20,10 +20,11 @@ void print_all(const char * const format, ...)
 
 	while (format && format[k])
 		k++;
+
 	while (format && format[j])
 	{
-			if (j == k - 1)
-				separator = "";
+		if (j == k - 1)
+			separator = "";
 		switch (format[j])
 		{
 			case 'c':
