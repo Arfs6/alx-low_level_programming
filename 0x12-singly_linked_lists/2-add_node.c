@@ -24,10 +24,10 @@ list_t *add_node(list_t **head, const char *str)
 	newNode->str = strdup(str);
 	if (!newNode->str && str) /* if str == NULL strdup will return NULL */
 		return (NULL); /* insufficient memory */
-	newNode->next = *head;
 	for (len = 0; str[len]; ++len)
 		;
 		newNode->len = len;
+	newNode->next = *head;
 	*head = newNode;
 
 	return (newNode);
