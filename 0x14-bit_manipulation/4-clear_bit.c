@@ -16,15 +16,19 @@ int clear_bit(unsigned long int *n, unsigned int index)
 	if (index > 63 || !n)
 		return (-1);
 
-	temp = *n;
-	temp >>= index;
-	temp &= 0;
-
-	for (i = 0; i < index; ++i)
+	temp = 0;
+	i = 63;
+	while (1)
+	{
+		temp <<= 1;
+		if (i != index)
 		{
-			temp <<= 1;
-	temp |= 1;
-}
+		temp |= 1;
+		}
+		if (i == 0)
+			break;
+		i--;
+	}
 
 	*n &= temp;
 
