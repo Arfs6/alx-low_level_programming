@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "main.h"
 
 /**
@@ -8,12 +9,11 @@
  */
 int get_endianness(void)
 {
-	unsigned int temp, temp2;
+	unsigned char check = 1;
 
-	temp = temp2 = 1;
-	temp << 10;
-	if (temp > temp2)
-		return (0);
+	check <<= 1;
+	if (check)
+		return (1);
 
-	return (1);
+	return (0);
 }
