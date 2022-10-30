@@ -1,11 +1,31 @@
-#include <stdio.h>
+#include <stdlib.h>
+#include "lists.h"
 
 /**
- * tmp - check the code
+ * sum_listint - sum all data (n) in a listint
+ * @head: pointer to first node
  *
- * Return: always 0
+ * Return: sum of all data
  */
-int tmp(void)
+int sum_listint(listint_t *head)
 {
-	return (0);
+	int sum = 0;
+	listint_t *node;
+
+	if (head == NULL)
+		return (0);
+
+	node = head;
+	while (1)
+	{
+		if (node->next == NULL)
+		{
+			sum += node->n;
+			break;
+		}
+		sum += node->n;
+		node = node->next;
+	}
+
+	return (sum);
 }
