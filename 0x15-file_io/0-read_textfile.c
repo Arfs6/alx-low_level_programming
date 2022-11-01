@@ -40,10 +40,8 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		free(buffer);
 		return (0);
 	}
-	ret = temp;
-	buffer[letters] = '\0';
 
-	ret = write(STDOUT_FILENO, buffer, letters);
+	ret = write(STDOUT_FILENO, buffer, temp);
 	close(fn);
 	free(buffer);
 	if (ret != temp)
