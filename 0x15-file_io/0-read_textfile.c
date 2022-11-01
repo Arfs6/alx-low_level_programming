@@ -15,7 +15,7 @@ void clearMemory(char *mem, unsigned int size);
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	size_t ret = 0;
+	int ret = 0;
        int fn, temp;
 	char *buffer;
 
@@ -28,16 +28,23 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	buffer = malloc(sizeof(char) * (letters + 1));
 	if (buffer == NULL)
+	{
+		close(fn);
 		return (0);
+	}
 	clearMemory(buffer, letters + 1);
 	temp = read(fn, buffer, letters);
 	if (temp == -1)
+	{
+		close(fn);
 		return (0);
+	}
 	ret = temp;
 	buffer[letters] = '\0';
 
 	ret = write(STDOUT_FILENO, buffer, letters);
-	if (ret < letters)
+	close(fn);
+	if (ret != temp)
 		return (0);
 
 	return (ret);
