@@ -16,7 +16,7 @@ void clearMemory(char *mem, unsigned int size);
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int ret = 0;
-       int fn, temp;
+	int fn, temp;
 	char *buffer;
 
 	if (filename == NULL || letters == 0)
