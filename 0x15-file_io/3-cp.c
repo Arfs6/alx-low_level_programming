@@ -48,7 +48,7 @@ int main(int ac, char **av)
 	if (ret == 98)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
-		exit (99);
+		exit(99);
 	}
 	else if (ret == 99)
 	{
@@ -59,7 +59,9 @@ int main(int ac, char **av)
 	ret = close(fromFn);
 	if (ret == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fromFn); exit(100); }
+		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fromFn);
+		exit(100);
+	}
 	ret = close(toFn);
 	if (ret == -1)
 	{
@@ -85,7 +87,7 @@ int copy(int fromFn, int toFn)
 	char buffer[BUFFERSIZE];
 
 	ret_r = ret_w = 0;
-	do{
+	do {
 		ret_r = read(fromFn, buffer, BUFFERSIZE);
 		if (ret_r == -1)
 			return (98);
