@@ -56,7 +56,8 @@ dlistint_t *insert_node(dlistint_t *node, int n)
 
 	newNode->n = n;
 	newNode->next = node->next;
-	newNode->next->prev = newNode;
+	if (newNode->next)
+		newNode->next->prev = newNode;
 	newNode->prev = node;
 	node->next = newNode;
 
