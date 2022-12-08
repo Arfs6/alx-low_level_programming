@@ -27,13 +27,17 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 	while (i <= idx && node)
 	{
 		if (i == idx)
+		{
+			node = node->prev;
 			return (insert_node(node, n));
+		}
 		i++;
 		node = node->next;
 	}
 
 	return (NULL);
 }
+
 	/**
 	 * insert_node - insert a node  after node passed
 	 * @node: insert node after this node
