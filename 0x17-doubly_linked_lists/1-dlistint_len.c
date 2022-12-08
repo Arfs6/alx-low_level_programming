@@ -14,15 +14,12 @@ size_t dlistint_len(const dlistint_t *h)
 
 	if (h == NULL)
 		return (0);
-	/* else if (h->next == NULL) */
-	/* 	return (1); */
-	/* node = h->next; */
-	node = malloc(sizeof(*node));
-	*node = *h;
+	else if (h->next == NULL)
+		return (1);
+	node = h->next;
 	for (count = 0; node; count++)
 		node = node->next;
-	/* count++; */
+	count++;
 
-	free(node);
 	return (count);
 }
