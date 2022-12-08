@@ -5,6 +5,9 @@
  * get_dnodeint_at_index - get node at given index
  * @head: pointer to first node
  * @index: index of node to get
+ *
+ * Return: node at index
+ * NULL: invalid index or head
  */
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
