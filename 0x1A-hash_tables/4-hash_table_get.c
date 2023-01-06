@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include "hash_tables.h"
 
 /**
@@ -10,7 +11,6 @@
  */
 char *hash_table_get(const hash_table_t *ht, const char *key)
 {
-	char *value;
 	unsigned long int idx;
 
 	if (ht == NULL || key == NULL || ht->size == 0)
