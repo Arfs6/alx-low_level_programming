@@ -16,7 +16,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	unsigned long int idx;
 	hash_node_t *newNode;
 
-	if (key == NULL || value == NULL)
+	if (key == NULL || value == NULL || ht == NULL)
 		return (0);
 	else if (*key == '\0')
 		return (0);
@@ -51,5 +51,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		newNode->next = ht->array[idx];
 		ht->array[idx] = newNode;
 	}
+
 	return (1);
 }
