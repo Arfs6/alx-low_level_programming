@@ -36,6 +36,8 @@ void hash_table_print(const hash_table_t *ht)
 	buf[len - 2] = '\0';
 
 	printf("%s}\n", buf);
+
+	free(buf);
 }
 
 /**

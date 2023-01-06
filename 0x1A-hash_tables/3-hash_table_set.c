@@ -67,6 +67,7 @@ void add_node(hash_node_t *newNode, hash_table_t *ht, const char *key, unsigned 
 	{
 		if (strcmp(node->key, key) == 0)
 		{
+			free(node->value);
 			node->value = newNode->value;
 			free(newNode->key), free(newNode);
 			return;
