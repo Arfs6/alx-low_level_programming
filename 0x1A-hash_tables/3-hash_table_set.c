@@ -14,7 +14,7 @@
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int idx;
-	hash_node_t *newNode;
+	hash_node_t *newNode, *node;
 
 	/* check if parameters are valid */
 	if (key == NULL || value == NULL || ht == NULL || ht->array == NULL)
@@ -45,13 +45,26 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 
 	/* add the node to the begining of the list at it's index */
 	if (ht->array[idx] == NULL)
+	{
 		/* first item */
 		ht->array[idx] = newNode;
-	else
+		return (1);
+	}
+
+	node = ht->array[idx];
+	while (node)
 	{
+		if (strcmp(node->key, key) == 0)
+		{
+			node->value = newNode->value;
+			free(newNode->key), free(newNode);
+			return (1);
+		}
+		node = node->next;
+	}
+
 		newNode->next = ht->array[idx];
 		ht->array[idx] = newNode;
-	}
 
 	return (1);
 }
