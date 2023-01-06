@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "hash_tables.h"
 
-void add_node(hash_node_t *node, hasht_table_t *ht);
+void add_node(hash_node_t *newNode, hash_table_t *ht, const char *key, unsigned long int idx);
 
 /**
  * hash_table_set - add a key value pair to the hash table
@@ -16,10 +16,10 @@ void add_node(hash_node_t *node, hasht_table_t *ht);
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int idx;
-	hash_node_t *newNode, *node;
+	hash_node_t *newNode;
 
 	if (!key || !*key || !value || !ht || !(ht->array))
-	return (0);
+		return (0);
 
 	idx = key_index((const unsigned char *)key, ht->size);
 	newNode = malloc(sizeof(*newNode));
@@ -46,18 +46,22 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		return (1);
 	}
 
-	add_node(node, ht);
+	add_node(newNode, ht, key, idx);
 
 	return (1);
 }
 
 /**
  * add_node - add the node to the array
- * @node: node to add to the link list.
+ * @newNode: node to add to the link list.
  * @ht: hash table pointer.
+ * @key: key to search for in list
+ * @idx: index
  */
-void add_node(hash_node_t *node, hasht_table_t *ht)
+void add_node(hash_node_t *newNode, hash_table_t *ht, const char *key, unsigned long int idx)
 {
+	hash_node_t *node;
+
 	node = ht->array[idx];
 	while (node)
 	{
@@ -65,11 +69,10 @@ void add_node(hash_node_t *node, hasht_table_t *ht)
 		{
 			node->value = newNode->value;
 			free(newNode->key), free(newNode);
-			return (1);
+			return;
 		}
 		node = node->next;
 	}
 	newNode->next = ht->array[idx];
 	ht->array[idx] = newNode;
-	return (1);
 }
