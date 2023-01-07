@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "hash_tables.h"
 
-void add_node(hash_node_t *newNode, hash_table_t *ht, const char *key, unsigned long int idx);
+void add_node(hash_node_t *newNode, hash_table_t *ht,
+		const char *key, unsigned long int idx);
 
 /**
  * hash_table_set - add a key value pair to the hash table
@@ -58,7 +59,8 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
  * @key: key to search for in list
  * @idx: index
  */
-void add_node(hash_node_t *newNode, hash_table_t *ht, const char *key, unsigned long int idx)
+void add_node(hash_node_t *newNode, hash_table_t *ht,
+		const char *key, unsigned long int idx)
 {
 	hash_node_t *node;
 
