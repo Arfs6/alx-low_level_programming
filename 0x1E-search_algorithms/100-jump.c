@@ -24,12 +24,22 @@ int block_linear_search(int *array, size_t idx, size_t stop, int value)
 	return (-1);
 }
 
+/**
+* jump_search - search for @value in @array
+* using jemp search algorithm.
+* @array: Array to search for @ value in
+* @size: Number of elements in @array
+* @value: Value to search for in @array.
+*
+* Return: Index where @value was found
+* -1: @array is null or @value wasn't found.
+*/
 int jump_search(int *array, size_t size, int value)
 {
 	size_t blockSize, idx = 0;
 
 	if (!array)
-			return (-1);
+		return (-1);
 
 	blockSize = sqrt(size);
 	for (idx = 0; idx < size; idx += blockSize)
@@ -40,7 +50,7 @@ int jump_search(int *array, size_t size, int value)
 	}
 
 	if (idx == 0)
-			return (-1);
+		return (-1);
 
 	printf("Value found between indexes [%lu] and [%lu]\n", idx - blockSize, idx);
 	return (block_linear_search(array, idx - blockSize, size, value));
